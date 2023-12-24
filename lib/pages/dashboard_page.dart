@@ -41,15 +41,15 @@ class _DashboardFullState extends State<DashboardFull> {
   void initState() {
     super.initState();
     getAkun();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     pages = <Widget>[
       AllLaporan(akun: akun),
       MyLaporan(akun: akun),
       Profile(akun: akun),
     ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -112,9 +112,9 @@ class _DashboardFullState extends State<DashboardFull> {
         setState(() {
           akun = Akun(
               uid: userData['uid'],
-              docId: userData['docID'],
+              docId: userData['docId'],
               nama: userData['nama'],
-              noHP: userData['noHp'],
+              noHP: userData['noHP'],
               email: userData['email'],
               role: userData['role']);
         });

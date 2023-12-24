@@ -27,13 +27,7 @@ class _SplashFullState extends State<SplashFull> {
     // harusnya nanti disini ada pengecekan user login atau tidak
 
     Future.delayed(Duration.zero, () {
-      _auth.authStateChanges().listen((User? user) {
-        if (user == null) {
-          Navigator.pushReplacementNamed(context, '/login');
-        } else {
-          Navigator.pushReplacementNamed(context, '/dashboard');
-        }
-      });
+      Navigator.pushReplacementNamed(context, '/dashboard');
     });
   }
 
