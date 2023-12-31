@@ -16,12 +16,15 @@ class InputWidget extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(
+          height: 5,
+        ),
         Container(
           child: inputField,
-
         ),
-        const SizedBox(height: 15,)
+        const SizedBox(
+          height: 15,
+        )
       ],
     );
   }
@@ -34,9 +37,7 @@ InputDecoration customInputDecoration(String hintText, {Widget? suffixIcon}) {
     floatingLabelBehavior: FloatingLabelBehavior.never,
     border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
     focusedBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.orangeAccent),
-      borderRadius: BorderRadius.circular(10)
-    )
-
+        borderSide: const BorderSide(color: Colors.orangeAccent),
+        borderRadius: BorderRadius.circular(10)),
   );
 }

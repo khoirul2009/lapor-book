@@ -62,7 +62,11 @@ class _DashboardFullState extends State<DashboardFull> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orangeAccent,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/addlapor', arguments: {
+            'akun': akun,
+          });
+        },
         child: Icon(Icons.add, size: 35),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -121,6 +125,7 @@ class _DashboardFullState extends State<DashboardFull> {
       }
     } catch (e) {
       final snackBar = SnackBar(content: Text(e.toString()));
+
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       print(e);
     } finally {
