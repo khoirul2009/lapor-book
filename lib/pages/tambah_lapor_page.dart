@@ -41,10 +41,10 @@ class _AddFormPageState extends State<AddFormPage> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.orangeAccent,
-        title: Text('Tambah Lapor'),
+        title: const Text('Tambah Lapor'),
         elevation: 0.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pushNamedAndRemoveUntil(
                 context, '/dashboard', ModalRoute.withName('dashboard'));
@@ -58,13 +58,13 @@ class _AddFormPageState extends State<AddFormPage> {
               )
             : SingleChildScrollView(
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Form(
                     key: _formKey,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 40.0,
                           width: double.infinity,
                         ),
@@ -79,17 +79,17 @@ class _AddFormPageState extends State<AddFormPage> {
                               decoration: customInputDecoration(''),
                             )),
                         Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: const EdgeInsets.symmetric(vertical: 10),
                           child: imagePreview(),
                         ),
                         Container(
                           width: double.infinity,
-                          margin: EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.only(bottom: 10),
                           child: ElevatedButton(
                             style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(
                                     Colors.orangeAccent)),
-                            child: Row(
+                            child: const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(Icons.photo_camera),
@@ -107,7 +107,7 @@ class _AddFormPageState extends State<AddFormPage> {
                             inputField: DropdownButtonFormField<String>(
                               items: dataInstansi.map((e) {
                                 return DropdownMenuItem<String>(
-                                    child: Text(e), value: e);
+                                    value: e, child: Text(e));
                               }).toList(),
                               decoration: customInputDecoration('Instansi'),
                               onChanged: (value) {
@@ -128,10 +128,10 @@ class _AddFormPageState extends State<AddFormPage> {
                               decoration: customInputDecoration(
                                   'Deskripsikan semua di sini'),
                             )),
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           child: FilledButton(
                               onPressed: () {
@@ -140,7 +140,7 @@ class _AddFormPageState extends State<AddFormPage> {
                               style: ButtonStyle(
                                   backgroundColor: MaterialStateProperty.all(
                                       Colors.orangeAccent)),
-                              child: Text('Kirim Laporan')),
+                              child: const Text('Kirim Laporan')),
                         )
                       ],
                     ),
@@ -165,7 +165,7 @@ class _AddFormPageState extends State<AddFormPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Pilih sumber'),
+            title: const Text('Pilih sumber'),
             actions: [
               TextButton(
                 onPressed: () async {
@@ -233,7 +233,9 @@ class _AddFormPageState extends State<AddFormPage> {
       Navigator.popAndPushNamed(context, '/dashboard');
     } catch (e) {
       final snackbar = SnackBar(content: Text(e.toString()));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      }
     } finally {
       setState(() {
         _isLoading = false;

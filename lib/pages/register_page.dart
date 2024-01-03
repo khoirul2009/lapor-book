@@ -132,13 +132,13 @@ class _RegisterPageState extends State<RegisterPage> {
                                   Colors.orangeAccent)),
                           child: const Text('Register'),
                         )),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Anda sudah memiliki akun?'),
+                        const Text('Anda sudah memiliki akun?'),
                         TextButton(
                             onPressed: () => Navigator.pushNamedAndRemoveUntil(
                                 context,

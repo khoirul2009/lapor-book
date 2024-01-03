@@ -12,7 +12,7 @@ class DashboardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DashboardFull();
+    return const DashboardFull();
   }
 }
 
@@ -54,7 +54,7 @@ class _DashboardFullState extends State<DashboardFull> {
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.orangeAccent,
-        title: Text(
+        title: const Text(
           'Lapor Book',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
@@ -67,7 +67,7 @@ class _DashboardFullState extends State<DashboardFull> {
             'akun': akun,
           });
         },
-        child: Icon(Icons.add, size: 35),
+        child: const Icon(Icons.add, size: 35),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.orangeAccent,
@@ -111,7 +111,7 @@ class _DashboardFullState extends State<DashboardFull> {
           .limit(1)
           .get();
       if (querySnapshot.docs.isNotEmpty) {
-        var userData = querySnapshot.docs.first.data() as Map<String, dynamic>;
+        var userData = querySnapshot.docs.first.data();
 
         setState(() {
           akun = Akun(
@@ -125,8 +125,9 @@ class _DashboardFullState extends State<DashboardFull> {
       }
     } catch (e) {
       final snackBar = SnackBar(content: Text(e.toString()));
-
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      }
       print(e);
     } finally {
       setState(() {

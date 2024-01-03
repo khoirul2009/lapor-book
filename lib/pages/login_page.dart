@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: 40,
               ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -108,13 +108,13 @@ class _LoginPageState extends State<LoginPage> {
                                     Colors.orangeAccent)),
                             child: const Text('Login'),
                           )),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Anda belum memiliki akun?'),
+                          const Text('Anda belum memiliki akun?'),
                           TextButton(
                               onPressed: () =>
                                   Navigator.pushNamedAndRemoveUntil(

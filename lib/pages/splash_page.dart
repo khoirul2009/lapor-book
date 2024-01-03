@@ -23,11 +23,15 @@ class _SplashFullState extends State<SplashFull> {
   @override
   void initState() {
     super.initState();
-
+    User? user = _auth.currentUser;
     // harusnya nanti disini ada pengecekan user login atau tidak
 
     Future.delayed(Duration.zero, () {
-      Navigator.pushReplacementNamed(context, '/dashboard');
+      if (user == null) {
+        Navigator.pushReplacementNamed(context, '/login');
+      } else {
+        Navigator.pushReplacementNamed(context, '/dashboard');
+      }
     });
   }
 

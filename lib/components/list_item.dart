@@ -9,7 +9,7 @@ class ListItem extends StatefulWidget {
   final Laporan laporan;
   final Akun akun;
   final bool isLaporanku;
-  ListItem(
+  const ListItem(
       {super.key,
       required this.laporan,
       required this.akun,
@@ -39,7 +39,6 @@ class _ListItemState extends State<ListItem> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 2),
@@ -47,10 +46,10 @@ class _ListItemState extends State<ListItem> {
       ),
       child: InkWell(
         onTap: () {
-          // Navigator.pushNamed(context, '/detail', arguments: {
-          //   'laporan': widget.laporan,
-          //   'akun': widget.akun,
-          // });
+          Navigator.pushNamed(context, '/detail', arguments: {
+            'laporan': widget.laporan,
+            'akun': widget.akun,
+          });
         },
         onLongPress: () {
           if (widget.isLaporanku) {
@@ -64,20 +63,21 @@ class _ListItemState extends State<ListItem> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text('Batal'),
+                        child: const Text('Batal'),
                       ),
                       TextButton(
                         onPressed: () {
                           deleteLaporan();
                         },
-                        child: Text('Hapus'),
+                        child: const Text('Hapus'),
                       ),
                     ],
                   );
                 });
           }
         },
-        child: Column(
+        child: Wrap(
+          alignment: WrapAlignment.center,
           children: [
             widget.laporan.gambar != ''
                 ? Image.network(
@@ -93,51 +93,64 @@ class _ListItemState extends State<ListItem> {
             Container(
               width: double.infinity,
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: const BoxDecoration(
                   border: Border.symmetric(horizontal: BorderSide(width: 2))),
               child: Text(
                 widget.laporan.judul,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             Row(
               children: [
                 Flexible(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: const BoxDecoration(
                       color: Color.fromARGB(255, 244, 188, 21),
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(5)),
+                      borderRadius:
+                          BorderRadius.only(bottomLeft: Radius.circular(5)),
                     ),
                     alignment: Alignment.center,
                     child: Text(
                       widget.laporan.status,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontWeight: FontWeight.bold, color: Colors.white),
                     ),
                   ),
                 ),
-                VerticalDivider(
-                  color: Colors.black,
-                  width: 3,
+                const SizedBox(
+                  width: 5,
+                  height: 35,
+                  child: VerticalDivider(
+                    color: Colors.black,
+                    thickness: 2,
+                    width: 5,
+                  ),
                 ),
                 Flexible(
                   child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    decoration: const BoxDecoration(
                       color: Colors.orangeAccent,
-                      borderRadius: const BorderRadius.only(
-                          bottomLeft: Radius.circular(5)),
+                      borderRadius:
+                          BorderRadius.only(bottomRight: Radius.circular(5)),
                     ),
                     alignment: Alignment.center,
                     child: Text(
                       DateFormat('dd/MM/yyyy').format(
                         widget.laporan.tanggal,
                       ),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
                     ),
                   ),
                 ),

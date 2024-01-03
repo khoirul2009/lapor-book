@@ -19,41 +19,41 @@ class _ProfileState extends State<Profile> {
     return SafeArea(
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
             Text(
               widget.akun.nama,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.orangeAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 40),
             ),
             Text(
               widget.akun.role,
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.orangeAccent,
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Colors.orangeAccent),
                 ), // Sudut border
               ),
               child: Text(
                 widget.akun.noHP,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.orangeAccent,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
@@ -61,24 +61,24 @@ class _ProfileState extends State<Profile> {
             ),
             Container(
               width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 10),
-              decoration: BoxDecoration(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: Colors.orangeAccent),
                 ), // Sudut border
               ),
               child: Text(
                 widget.akun.email,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.orangeAccent,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
-            Container(
+            SizedBox(
               width: double.infinity,
               child: FilledButton(
                 style: ButtonStyle(
@@ -87,11 +87,11 @@ class _ProfileState extends State<Profile> {
                     backgroundColor:
                         MaterialStateProperty.all(Colors.orangeAccent)),
                 onPressed: () => keluar(context),
-                child: Text('Logout',
+                child: const Text('Logout',
                     style: TextStyle(color: Colors.white, fontSize: 20)),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
           ],
