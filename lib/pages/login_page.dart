@@ -149,11 +149,15 @@ class _LoginPageState extends State<LoginPage> {
       await _auth.signInWithEmailAndPassword(
           email: email!, password: password!);
 
-      Navigator.pushNamedAndRemoveUntil(
-          context, '/dashboard', ModalRoute.withName('/dashboard'));
+      if (mounted) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, '/dashboard', ModalRoute.withName('/dashboard'));
+      }
     } catch (e) {
       final snackbar = SnackBar(content: Text(e.toString()));
-      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      }
     } finally {
       setState(() {
         _isLoading = false;

@@ -28,6 +28,7 @@ class _AllLaporanState extends State<AllLaporan> {
         laporan.clear();
         for (var documents in querySnapshot.docs) {
           List<dynamic>? komentarData = documents.data()['komentar'];
+          List<dynamic>? likesData = documents.data()['likes'];
 
           List<Komentar>? listKomentar = komentarData?.map((map) {
             return Komentar(
@@ -36,20 +37,27 @@ class _AllLaporanState extends State<AllLaporan> {
             );
           }).toList();
 
+          List<Likes>? listLike = likesData?.map((e) {
+            return Likes(
+                email: e['email'],
+                nama: e['nama'],
+                timestamp: e['timestamp'].toDate());
+          }).toList();
+
           laporan.add(
             Laporan(
-              uid: documents.data()['uid'],
-              docId: documents.data()['docId'],
-              judul: documents.data()['judul'],
-              instansi: documents.data()['instansi'],
-              deskripsi: documents.data()['deskripsi'],
-              nama: documents.data()['nama'],
-              status: documents.data()['status'],
-              gambar: documents.data()['gambar'],
-              tanggal: documents['tanggal'].toDate(),
-              maps: documents.data()['maps'],
-              komentar: listKomentar,
-            ),
+                uid: documents.data()['uid'],
+                docId: documents.data()['docId'],
+                judul: documents.data()['judul'],
+                instansi: documents.data()['instansi'],
+                deskripsi: documents.data()['deskripsi'],
+                nama: documents.data()['nama'],
+                status: documents.data()['status'],
+                gambar: documents.data()['gambar'],
+                tanggal: documents['tanggal'].toDate(),
+                maps: documents.data()['maps'],
+                komentar: listKomentar,
+                likes: listLike),
           );
         }
       });

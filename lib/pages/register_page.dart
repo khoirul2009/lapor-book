@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -96,9 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       inputField: TextFormField(
                         obscureText: true,
                         decoration: customInputDecoration('Password anda'),
-                        onChanged: (value) {
-                          password = value;
-                        },
+                        controller: _password,
                         validator: notEmptyValidator,
                       ),
                       label: 'Password',
@@ -108,11 +108,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         obscureText: true,
                         decoration:
                             customInputDecoration('Konfirmasi Password'),
-                        onChanged: (value) {
-                          setState(() {
-                            confirmPassword = value;
-                          });
-                        },
                         validator: (value) =>
                             passwordConfirmationValidator(value, _password),
                       ),
@@ -144,10 +139,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 context,
                                 '/login',
                                 ModalRoute.withName('/login')),
-                            child: const Text('Login', style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            ),))
+                            child: const Text(
+                              'Login',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ))
                       ],
                     )
                   ],
@@ -174,6 +171,7 @@ class _RegisterPageState extends State<RegisterPage> {
           email: email!, password: _password.text);
 
       final docId = akunCollection.doc().id;
+
       await akunCollection.doc(docId).set({
         'uid': _auth.currentUser!.uid,
         'nama': nama,

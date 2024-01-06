@@ -111,8 +111,12 @@ class _ListItemState extends State<ListItem> {
                 Flexible(
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 8),
-                    decoration: const BoxDecoration(
-                      color: Color.fromARGB(255, 244, 188, 21),
+                    decoration: BoxDecoration(
+                      color: widget.laporan.status == 'Posted'
+                          ? Colors.yellow
+                          : widget.laporan.status == 'Process'
+                              ? Colors.green
+                              : Colors.blue,
                       borderRadius:
                           BorderRadius.only(bottomLeft: Radius.circular(5)),
                     ),
@@ -143,9 +147,7 @@ class _ListItemState extends State<ListItem> {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      DateFormat('dd/MM/yyyy').format(
-                        widget.laporan.tanggal,
-                      ),
+                      "${widget.laporan.likes == null ? 0 : widget.laporan.likes?.length} Likes",
                       style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:lapor_book/components/komentar_dialog.dart';
@@ -15,6 +16,10 @@ class DetailLaporan extends StatefulWidget {
 
 class _DetailLaporanState extends State<DetailLaporan> {
   final bool _isLoading = false;
+  final _firestore = FirebaseFirestore.instance;
+
+  bool isShow = true;
+  late Laporan laporan;
 
   Future launch(String uri) async {
     if (uri == '') return;
@@ -23,13 +28,27 @@ class _DetailLaporanState extends State<DetailLaporan> {
     }
   }
 
+  void getLaporan() async {}
+
   @override
   Widget build(BuildContext context) {
     final arguments =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
 
-    Laporan laporan = arguments['laporan'];
+    setState(() {
+      laporan = arguments['laporan'];
+    });
+
     Akun akun = arguments['akun'];
+
+    laporan.likes?.forEach((element) {
+      if (element.email == akun.email) {
+        print(element.email);
+        setState(() {
+          isShow = false;
+        });
+      }
+    });
 
     void statusDialog(Laporan laporan) {
       showDialog(
@@ -51,6 +70,28 @@ class _DetailLaporanState extends State<DetailLaporan> {
       );
     }
 
+    void addLikes() async {
+      CollectionReference transaksiCollection =
+          _firestore.collection('laporan');
+      try {
+        await transaksiCollection.doc(laporan.docId).update({
+          'likes': FieldValue.arrayUnion([
+            {
+              'email': akun.email,
+              'nama': akun.nama,
+              'timestamp': DateTime.now()
+            }
+          ])
+        });
+
+        setState(() {
+          isShow = !isShow;
+        });
+      } catch (e) {
+        print(e);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orangeAccent,
@@ -58,6 +99,14 @@ class _DetailLaporanState extends State<DetailLaporan> {
         centerTitle: true,
         elevation: 0.0,
       ),
+      floatingActionButton: isShow
+          ? FloatingActionButton(
+              backgroundColor: Colors.orangeAccent,
+              onPressed: () {
+                addLikes();
+              },
+              child: Icon(Icons.favorite))
+          : null,
       body: SafeArea(
           child: _isLoading
               ? const Center(
@@ -96,6 +145,32 @@ class _DetailLaporanState extends State<DetailLaporan> {
                               textStatus(
                                   laporan.instansi, Colors.white, Colors.black),
                             ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 8),
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(16))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.favorite,
+                                    size: 32, color: Colors.grey[600]),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Builder(builder: (context) {
+                                  if (laporan.likes != null) {
+                                    return Text(
+                                        "${laporan.likes!.length} liked");
+                                  } else {
+                                    return Text('0');
+                                  }
+                                })
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 20),
                           ListTile(

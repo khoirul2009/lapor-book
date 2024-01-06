@@ -229,8 +229,11 @@ class _AddFormPageState extends State<AddFormPage> {
         'maps': maps,
       }).catchError((e) {
         throw e;
-      });
-      Navigator.popAndPushNamed(context, '/dashboard');
+      }).then(
+        (value) {
+          Navigator.popAndPushNamed(context, '/dashboard');
+        },
+      );
     } catch (e) {
       final snackbar = SnackBar(content: Text(e.toString()));
       if (mounted) {
